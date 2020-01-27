@@ -1,4 +1,4 @@
-const Joi = require("@hapi/joi");
+import Joi from "@hapi/joi";
 
 const validateInput = input => {
   const newInput = input.body;
@@ -15,9 +15,9 @@ const validateInput = input => {
 };
 
 const languages = {
-  English: "en",
-  Spanish: "es",
-  French: "fr"
+  english: "en",
+  spanish: "es",
+  french: "fr"
 };
 
-module.exports = { validateInput, languages };
+export { validateInput, languages };

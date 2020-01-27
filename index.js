@@ -16,7 +16,7 @@ server.get("/places", (req, res) => {
   }
 
   // Optional parameters
-  const language = languages[req.body] || "en";
+  const language = languages[req.body.language ? req.body.language.toLowerCase() : null] || "en";
   const type = req.body.type || "all";
   const outputType = req.body.outputType || "json";
   const number = req.body.number || 20;
@@ -44,4 +44,4 @@ server.get("/places", (req, res) => {
 
 let httpServer = server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
-module.exports = httpServer;
+export default httpServer;

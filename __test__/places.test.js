@@ -35,4 +35,15 @@ describe("unit tests on endpoint", () => {
       });
     expect(response.body.results.length).toEqual(1);
   });
+
+  test("A request body with Citibank as customer name should return a name of Citibank in the result", async () => {
+    const response = await request(server)
+      .get("/places")
+      .send({
+        latitude: -33.8599358,
+        longitude: 151.2090295,
+        customerName: "Citibank"
+      });
+    expect(response.body.results[0].name).toEqual("Citibank");
+  });
 });
