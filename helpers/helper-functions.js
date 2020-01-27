@@ -1,11 +1,21 @@
 import Joi from "@hapi/joi";
 
 const validateInput = input => {
-  const newInput = req.body;
+  const newInput = input.body;
   const schema = Joi.object({
-    latitude: Joi.required()
-    // longitude: Joi.re
+    latitude: Joi.required(),
+    type: Joi.string(),
+    longitude: Joi.required(),
+    customerName: Joi.required(),
+    language: Joi.string()
   });
+  return schema.validate(newInput);
 };
 
-export default validateInput;
+const languages = {
+  English: "en",
+  Spanish: "es",
+  French: "fr"
+};
+
+export { validateInput, languages };
