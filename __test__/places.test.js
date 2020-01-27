@@ -1,6 +1,6 @@
-const server = require("../index");
-const request = require("supertest");
-const axios = require("axios");
+import server from "../index";
+import request from "supertest";
+import axios from "axios";
 axios.defaults.adapter = require("axios/lib/adapters/http");
 
 describe("unit tests on endpoint", () => {
@@ -8,17 +8,31 @@ describe("unit tests on endpoint", () => {
     await server.close();
   });
 
-  test(`index exists`, () => {
-    expect("Hello").toEqual("Hello");
+  test("An empty request body should return a status code of 400", async () => {
+    const response = await request(server).get("/places");
+    expect(response.status).toEqual(400);
   });
 
-  test("Status Code should be 200", async () => {
-    const response = await request(server).get("/places");
-    expect(response.status).toEqual(200);
+  test("A non-empty body should return non-empty array of results", async () => {
+    const response = await request(server)
+      .get("/places")
+      .send({
+        latitude: -33.8599358,
+        longitude: 151.2090295,
+        customerName: "Chase"
+      });
+    expect(response.body.results.length).toEqual(8);
   });
 
-  test("An empty request should be an empty array of results", async () => {
-    const response = await request(server).get("/places");
-    expect(response.body.results.length).toEqual(0);
+  test("A request body including number of requests as 1 should return just 1 result", async () => {
+    const response = await request(server)
+      .get("/places")
+      .send({
+        latitude: -33.8599358,
+        longitude: 151.2090295,
+        customerName: "Chase",
+        number: 1
+      });
+    expect(response.body.results.length).toEqual(1);
   });
 });

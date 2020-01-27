@@ -1,10 +1,10 @@
-const express = require("express");
-const axios = require("axios");
+import { validateInput, languages } from "./helpers/helper-functions";
+import express from "express";
+import axios from "axios";
 const server = express();
 require("dotenv").config();
 const PORT = process.env.PORT;
 server.use(express.json());
-const { validateInput, languages } = require("./helpers/helper-functions");
 
 server.get("/places", (req, res) => {
   let { latitude, longitude, customerName } = req.body;
@@ -25,15 +25,17 @@ server.get("/places", (req, res) => {
   if (customerName.indexOf(" ") >= 0) {
     customerName = customerName.replace(/\s/g, "+");
   }
+
   axios
     .get(
-      `https://maps.googleapis.com/maps/api/place/textsearch/${outputType}?query=${customerName}&pagetoken=1&location=${latitude},${longitude}&type=${type}&language=${language}&radius=10000&language=spanish&key=${process.env.API_KEY}`
+      `https://maps.googleapis.com/maps/api/place/textsearch/${outputType}?query=${customerName}&location=${latitude},${longitude}&type=${type}&language=${language}&radius=10000&key=${process.env.API_KEY}`
     )
     .then(response => {
       if (number < 20) {
-        return res.send(response.data.splice(0, number));
+        response.data.results = response.data.results.splice(0, number);
+        return res.send(response.data);
       }
-      res.send(response.data);
+      return res.send(response.data);
     })
     .catch(err => {
       res.status(400).json(err);

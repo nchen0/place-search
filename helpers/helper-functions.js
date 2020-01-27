@@ -1,4 +1,4 @@
-import Joi from "@hapi/joi";
+const Joi = require("@hapi/joi");
 
 const validateInput = input => {
   const newInput = input.body;
@@ -7,7 +7,9 @@ const validateInput = input => {
     type: Joi.string(),
     longitude: Joi.required(),
     customerName: Joi.required(),
-    language: Joi.string()
+    language: Joi.string(),
+    number: Joi.number(),
+    outputType: Joi.string()
   });
   return schema.validate(newInput);
 };
@@ -18,4 +20,4 @@ const languages = {
   French: "fr"
 };
 
-export { validateInput, languages };
+module.exports = { validateInput, languages };
