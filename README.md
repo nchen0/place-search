@@ -1,6 +1,6 @@
 # Steps:
 
-- To start server: `npm install` & `npm start`, open up an API tool like Postman, and open up a GET on `localhost:8000/places`. Add request bodies to return non-zero results.
+- To start server: run `npm install` & `npm start`, open up an API tool like Postman, and open up a GET request on `localhost:8000/places`. Add request bodies to return non-zero results. Example shown below.
 - To test: `npm run test`.
 - To run lint: `npm run lint`.
 
