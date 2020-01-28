@@ -1,6 +1,6 @@
-import server from "../index";
-import request from "supertest";
 import axios from "axios";
+import request from "supertest";
+import server from "../index";
 axios.defaults.adapter = require("axios/lib/adapters/http");
 
 describe("unit tests on endpoint", () => {

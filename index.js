@@ -1,8 +1,8 @@
-import { validateInput, languages } from "./helpers/helper-functions";
-import express from "express";
-import axios from "axios";
-const server = express();
 require("dotenv").config();
+import axios from "axios";
+import express from "express";
+import { validateInput, languages } from "./helpers/helper-functions";
+const server = express();
 const PORT = process.env.PORT;
 server.use(express.json());
 
